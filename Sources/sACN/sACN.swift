@@ -255,10 +255,17 @@ public final class MulticastConnection {
     /// Starts a IPv4 UDP Multicast Connection for a given `universe`
     /// - Parameters:
     ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4 Address
-    ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID
-    ///   - sourceName: Source Name - Userassigned Name of Source. Default the device name
-    ///   - queue: DispatchQueue used for NWConnection
-    public init(universe: UInt16, cid: UUID = .init(), sourceName: String = getDeviceName(), queue: DispatchQueue? = nil) {
+    ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID.
+    ///   - sourceName: Source Name - Userassigned Name of Source. Default is the device name.
+    ///   - queue: DispatchQueue used for NWConnection/
+    ///   - parameters: custom parameters for NWConnection. Must be UDP/
+    public init(
+        universe: UInt16,
+        cid: UUID = .init(),
+        sourceName: String = getDeviceName(),
+        queue: DispatchQueue? = nil,
+        parameters: NWParameters? = nil
+    ) {
         guard let address = IPv4Address.sACN(universe: universe) else {
             fatalError("could not create IPV4Address for universe \(universe)")
         }
@@ -268,13 +275,20 @@ public final class MulticastConnection {
         rootLayer = RootLayer(cid: cid)
         dataFramginLayer = .init(sourceName: sourceName, universe: universe)
         
-        let parameter = NWParameters.udp
-        parameter.serviceClass = .responsiveData
+        let parameters = parameters ?? {
+            let defaultParameter = NWParameters.udp
+            defaultParameter.serviceClass = .responsiveData
+            return defaultParameter
+        }()
+        
+        assert(parameters.debugDescription.lowercased().contains("udp"), "parameters must be for a UDP connection")
+        
         self.connection = NWConnection(
             host: .ipv4(address),
             port: 5568,
-            using: parameter
+            using: parameters
         )
+        
 
         connection.start(queue: self.queue)
     }
