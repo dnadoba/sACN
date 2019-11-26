@@ -105,15 +105,12 @@ let dmxDataFramingLayerTemplate = Data([
     0x00, 0x00,
 ])
 
-public struct DMXDataFramingOptions: OptionSet, RawRepresentable {
-    public static let previewData = DMXDataFramingOptions(rawValue: 0b0100_0000)
-    public static let streamTerminatd = DMXDataFramingOptions(rawValue: 0b0010_0000)
-    public static let forceSynchronization = DMXDataFramingOptions(rawValue: 0b0001_0000)
-    public static let none: DMXDataFramingOptions = []
-    public var rawValue: UInt8
-    public init(rawValue: UInt8) {
-        self.rawValue = rawValue
-    }
+fileprivate struct DMXDataFramingOptions: OptionSet, RawRepresentable {
+    static let previewData = DMXDataFramingOptions(rawValue: 0b0100_0000)
+    static let streamTerminatd = DMXDataFramingOptions(rawValue: 0b0010_0000)
+    static let forceSynchronization = DMXDataFramingOptions(rawValue: 0b0001_0000)
+    static let none: DMXDataFramingOptions = []
+    var rawValue: UInt8
 }
 
 
