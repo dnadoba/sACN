@@ -8,6 +8,7 @@
 import Foundation
 import sACN
 import QuartzCore
+import Network
 
 class RepeatingTimer {
     
@@ -65,21 +66,19 @@ class RepeatingTimer {
     }
 }
 
-let client = Client(universe: 1)
+let client = MulticastConnection(universe: 1)
 
 let timer = RepeatingTimer(timeInterval: 1/40, queue: client.queue)
 timer.eventHandler = {
-    autoreleasepool {
-        var data = Data(count: 512)
-        let t = CACurrentMediaTime()
-        let d = sin(t) * 0.5 + 0.5
-        let dim = UInt8(truncatingIfNeeded: Int(d * 256))
-        let customData = Data([0, 10, 255, 0, 0, 0, dim, 0, 85, 255, 0, 0, 0, dim, 0, 85, 255, 0, 0, 0, dim])
-        data[0..<customData.count] = customData
-        client.sendDMXData(Data(data))
-    }
+    var data = Data(count: 512)
+    let t = CACurrentMediaTime()
+    let d = sin(t) * 0.5 + 0.5
+    let dim = UInt8(truncatingIfNeeded: Int(d * 256))
+    let customData = Data([0, 10, 255, 0, 0, 0, dim, 0, 85, 255, 0, 0, 0, dim, 0, 85, 255, 0, 0, 0, dim])
+    data[0..<customData.count] = customData
+    client.sendDMXData(Data(data))
 }
 timer.resume()
 
 let a = readLine()
-print(a)
+print(a as Any)

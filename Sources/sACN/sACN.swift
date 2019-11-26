@@ -236,36 +236,63 @@ public func getDeviceName() -> String {
     return Host.current().localizedName!
     #endif
 }
-
-public class Client {
-    public let queue = DispatchQueue(label: "sACN.udp.send.queue")
-    let connection: NWConnection
+/// IPv4 UDP Multicast Connection to send DMX Data to a given Universe
+/// Note: this class is not threadsafe
+public final class MulticastConnection {
+    public let queue: DispatchQueue
+    private let connection: NWConnection
+    
+    /// Sender's Component Identifier
+    public let cid: UUID
+    /// Source Name - Userassigned Name of Source
+    public let sourceName: String
+    
     private let rootLayer: RootLayer
     private let dataFramginLayer: DMXDataFramingLayer
-    private(set) var sequenceNumber: UInt8 = 0
-    public init(cid: UUID = .init(), sourceName: String = getDeviceName(), universe: UInt16) {
+    public private(set) var sequenceNumber: UInt8 = 0
+    
+    
+    /// Starts a IPv4 UDP Multicast Connection for a given `universe`
+    /// - Parameters:
+    ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4 Address
+    ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID
+    ///   - sourceName: Source Name - Userassigned Name of Source. Default the device name
+    ///   - queue: DispatchQueue used for NWConnection
+    public init(universe: UInt16, cid: UUID = .init(), sourceName: String = getDeviceName(), queue: DispatchQueue? = nil) {
+        guard let address = IPv4Address.sACN(universe: universe) else {
+            fatalError("could not create IPV4Address for universe \(universe)")
+        }
+        self.queue = queue ?? DispatchQueue(label: "sACN.udp-send-queue-for-universe-\(universe)")
+        self.cid = cid
+        self.sourceName = sourceName
         rootLayer = RootLayer(cid: cid)
         dataFramginLayer = .init(sourceName: sourceName, universe: universe)
-        let p = NWParameters.udp
         
-        p.serviceClass = .responsiveData
-        let connection = NWConnection(
-            host: .ipv4(.sACN(universe: 1)!),
+        let parameter = NWParameters.udp
+        parameter.serviceClass = .responsiveData
+        self.connection = NWConnection(
+            host: .ipv4(address),
             port: 5568,
-            using: p
+            using: parameter
         )
-        self.connection = connection
 
-        connection.start(queue: queue)
+        connection.start(queue: self.queue)
     }
+    
     private func getNextSequenceNumber() -> UInt8 {
         sequenceNumber &+= 1
         return sequenceNumber
     }
+    /// Send the given DMX Data to `universe`
+    /// - Parameter data: DMX data. data count must be smaller or euqal to 512
     public func sendDMXData(_ data: Data) {
+        assert(data.count <= 512, "DMX data count must be smaller or equal to 512")
         let dmpLayer = DMPLayer(dmxData: data)
         let packet = DataPacket(rootLayer: rootLayer, framingLayer: dataFramginLayer, dmpLayer: dmpLayer)
         let packetData = packet.getData(sequenceNumber: getNextSequenceNumber())
         connection.send(content: packetData, completion: .idempotent)
+    }
+    deinit {
+        connection.cancel()
     }
 }
