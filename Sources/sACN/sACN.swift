@@ -298,11 +298,21 @@ public final class MulticastConnection {
         return sequenceNumber
     }
     /// Send the given DMX Data to `universe`
-    /// - Parameter data: DMX data. data count must be smaller or euqal to 512
-    public func sendDMXData(_ data: Data) {
+    /// - Parameter
+    ///   - data: DMX data. data count must be smaller or euqal to 512
+    ///   - priority:  sACN Package Priority beteween 1 and 200. Default is 100
+    ///   - isPreviewData:  default is false
+    public func sendDMXData(_ data: Data, priority: UInt8 = 100, isPreviewData: Bool = false) {
         assert(data.count <= 512, "DMX data count must be smaller or equal to 512")
         let dmpLayer = DMPLayer(dmxData: data)
-        let packet = DataPacket(rootLayer: rootLayer, framingLayer: dataFramginLayer, dmpLayer: dmpLayer)
+        var framingLayer = dataFramginLayer
+        framingLayer.priority = priority
+        if isPreviewData {
+            framingLayer.options.insert(.previewData)
+        } else {
+            framingLayer.options.remove(.previewData)
+        }
+        let packet = DataPacket(rootLayer: rootLayer, framingLayer: framingLayer, dmpLayer: dmpLayer)
         let packetData = packet.getData(sequenceNumber: getNextSequenceNumber())
         connection.send(content: packetData, completion: .idempotent)
     }
