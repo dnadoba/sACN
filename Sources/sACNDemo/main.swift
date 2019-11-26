@@ -80,5 +80,7 @@ timer.eventHandler = {
 }
 timer.resume()
 
+// wait until the user presses return
+print("press return to quit")
 let a = readLine()
 print(a as Any)
