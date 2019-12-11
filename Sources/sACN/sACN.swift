@@ -20,7 +20,7 @@ extension UnsignedInteger {
     }
 }
 
-private let sacnDefaultPort = 5568
+private let sacnDefaultPort: NWEndpoint.Port = 5568
 
 extension IPv4Address {
     static func sACN(universe: UInt16) -> IPv4Address? {
@@ -238,7 +238,7 @@ public func getDeviceName() -> String {
 /// IPv4 UDP Multicast Connection to send DMX Data to a given Universe
 /// Note: this class is not threadsafe
 public final class MulticastConnection {
-    public static let defaultParameters: NWParameters {
+    public static let defaultParameters: NWParameters = {
         let defaultParameter = NWParameters.udp
         defaultParameter.serviceClass = .responsiveData
         return defaultParameter
