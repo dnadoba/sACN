@@ -20,6 +20,8 @@ extension UnsignedInteger {
     }
 }
 
+private let sacnDefaultPort = 5568
+
 extension IPv4Address {
     static func sACN(universe: UInt16) -> IPv4Address? {
         IPv4Address(Data([239, 255] + universe.networkByteOrder.data))
@@ -236,6 +238,11 @@ public func getDeviceName() -> String {
 /// IPv4 UDP Multicast Connection to send DMX Data to a given Universe
 /// Note: this class is not threadsafe
 public final class MulticastConnection {
+    public static let defaultParameters: NWParameters {
+        let defaultParameter = NWParameters.udp
+        defaultParameter.serviceClass = .responsiveData
+        return defaultParameter
+    }()
     public let queue: DispatchQueue
     private let connection: NWConnection
     
@@ -272,20 +279,15 @@ public final class MulticastConnection {
         rootLayer = RootLayer(cid: cid)
         dataFramginLayer = .init(sourceName: sourceName, universe: universe)
         
-        let parameters = parameters ?? {
-            let defaultParameter = NWParameters.udp
-            defaultParameter.serviceClass = .responsiveData
-            return defaultParameter
-        }()
+        let parameters = parameters ?? MulticastConnection.defaultParameters
         
         assert(parameters.debugDescription.lowercased().contains("udp"), "parameters must be for a UDP connection")
         
         self.connection = NWConnection(
             host: .ipv4(address),
-            port: 5568,
+            port: sacnDefaultPort,
             using: parameters
         )
-        
 
         connection.start(queue: self.queue)
     }
