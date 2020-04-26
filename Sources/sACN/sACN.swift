@@ -116,7 +116,7 @@ struct RootLayer {
     
     private let cidData: Data
     init(cid: UUID) {
-        self.cidData = cid.uuid.data
+        self.cidData = cid.data
     }
     var count: Int { rootLayerTemplate.count }
     func write(to data: inout Data, fullPacketLength: UInt16) {
