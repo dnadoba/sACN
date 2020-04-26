@@ -264,9 +264,9 @@ public func getDeviceName() -> String {
     return Host.current().localizedName!
     #endif
 }
-/// IPv4 UDP Multicast Connection to send DMX Data to a given Universe
+/// IPv4/IPv6 UDP Connection to send DMX Data to a given Universe
 /// Note: this class is not threadsafe
-public final class MulticastConnection {
+public final class Connection {
     public enum IPVersion {
         case v4
         case v6
@@ -294,9 +294,9 @@ public final class MulticastConnection {
     private let dataFramginLayer: DMXDataFramingLayer
     public private(set) var sequenceNumber: UInt8 = 0
     
-    /// Starts a UDP  Connection for the given `endpoint`
+    /// Starts a UDP Unicast or Multicast Connection, depending on the given `endpoint`, for the given `endpoint`
     /// - Parameters:
-    ///   - endpoint: valid sACN endpoint
+    ///   - endpoint: sACN endpoint.
     ///   - universe: valid DMX Universe. 1 - 64000.
     ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID.
     ///   - sourceName: Source Name - Userassigned Name of Source. Default is the device name.
@@ -316,7 +316,7 @@ public final class MulticastConnection {
         rootLayer = RootLayer(cid: cid)
         dataFramginLayer = .init(sourceName: sourceName, universe: universe)
         
-        let parameters = parameters ?? MulticastConnection.defaultParameters
+        let parameters = parameters ?? Connection.defaultParameters
         
         // could not find a better way to detect if `NWParameters` is configured for UDP
         assert(parameters.debugDescription.lowercased().contains("udp"), "parameters must be for a UDP connection")

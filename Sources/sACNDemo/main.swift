@@ -66,7 +66,7 @@ class RepeatingTimer {
     }
 }
 
-let client = MulticastConnection(universe: 1)
+let client = Connection(universe: 1)
 
 let timer = RepeatingTimer(timeInterval: 1/40, queue: client.queue)
 timer.eventHandler = {
