@@ -24,13 +24,20 @@ extension UnsignedInteger {
 fileprivate let universeDiscovery: UInt16 = 64214
 
 extension IPv4Address {
+    /// The streaming Architecture for Control Networks (ACN) protocol IPv4 multicast address for the given `universe`.
+    /// - Parameter universe: a sACN universe
+    /// - Returns: an IPv6Address for the given `universe`
     public static func sACN(universe: UInt16) -> IPv4Address? {
         IPv4Address(Data([239, 255] + universe.networkByteOrder.data))
     }
+    /// The streaming Architecture for Control Networks (ACN) protocol IPv4 multicast address for universe discovery (64214).
     public static var sACNUniverseDiscovery: IPv4Address { .sACN(universe: universeDiscovery)! }
 }
 
 extension IPv6Address {
+    /// The streaming Architecture for Control Networks (ACN) protocol IPv6 multicast address for the given `universe`.
+    /// - Parameter universe: a sACN universe
+    /// - Returns: an IPv6Address for the given `universe`
     public static func sACN(universe: UInt16) -> IPv6Address? {
         IPv6Address(Data([
             0xFF, // 1
@@ -51,10 +58,12 @@ extension IPv6Address {
                   // 16 - Universe/Synchronization Address – Lo byte
         ] + universe.networkByteOrder.data))
     }
+    /// The streaming Architecture for Control Networks (ACN) protocol IPv6 multicast address for universe discovery (64214).
     public static var sACNUniverseDiscovery: IPv6Address { .sACN(universe: universeDiscovery)! }
 }
 
 extension NWEndpoint.Port {
+    /// The streaming Architecture for Control Networks (ACN) protocol default port.
     public static let sACN: NWEndpoint.Port = 5568
 }
 
