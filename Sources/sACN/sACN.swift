@@ -84,7 +84,7 @@ func flagsAndLength(length: UInt16, flags: UInt8 = 0x07) -> UInt16 {
     return escapedFlags | escapedLength
 }
 
-fileprivate struct RootLayer {
+struct RootLayer {
     private static let lengthStartingByte: UInt16 = 16
     private static let cidRange = 22...37
     private static let flagsAndLengthRange = 16...17
@@ -98,10 +98,10 @@ fileprivate struct RootLayer {
         ])
     }
     var count: Int { rootLayerTemplate.count }
-    func write(to data: inout Data, fullPackageLength: UInt16) {
+    func write(to data: inout Data, fullPacketLength: UInt16) {
         data[0..<rootLayerTemplate.count] = rootLayerTemplate
         data[RootLayer.cidRange] = cidData
-        let pduLength = fullPackageLength - (Self.lengthStartingByte - 1)
+        let pduLength = fullPacketLength - (Self.lengthStartingByte - 1)
         data[RootLayer.flagsAndLengthRange] = flagsAndLength(length: pduLength).networkByteOrder.data
     }
 }
@@ -136,7 +136,7 @@ let dmxDataFramingLayerTemplate = Data([
     0x00, 0x00,
 ])
 
-fileprivate struct DMXDataFramingOptions: OptionSet, RawRepresentable {
+struct DMXDataFramingOptions: OptionSet, RawRepresentable {
     static let previewData = DMXDataFramingOptions(rawValue: 0b0100_0000)
     static let streamTerminatd = DMXDataFramingOptions(rawValue: 0b0010_0000)
     static let forceSynchronization = DMXDataFramingOptions(rawValue: 0b0001_0000)
@@ -145,7 +145,7 @@ fileprivate struct DMXDataFramingOptions: OptionSet, RawRepresentable {
 }
 
 
-fileprivate struct DMXDataFramingLayer {
+struct DMXDataFramingLayer {
     private static let lengthStartingByte: UInt16 = 48
     static let flagsAndLengthRange = 38...39
     static let sourceNameRange = 44...107
@@ -158,7 +158,7 @@ fileprivate struct DMXDataFramingLayer {
     
     var sourceNameData: Data
     var universe: UInt16
-    var priority: UInt8 = 101
+    var priority: UInt8 = 100
     var synchronizationUniverse: UInt16 = 0
     var options: DMXDataFramingOptions = .none
     var count: Int { dmxDataFramingLayerTemplate.count }
@@ -166,7 +166,7 @@ fileprivate struct DMXDataFramingLayer {
     init(
        sourceName: String,
        universe: UInt16,
-       priority: UInt8 = 101,
+       priority: UInt8 = 100,
        synchronizationUniverse: UInt16 = 0,
        options: DMXDataFramingOptions = .none
     ) {
@@ -179,9 +179,9 @@ fileprivate struct DMXDataFramingLayer {
         )?.data(using: .utf8) ?? Data()
     }
     
-    func write(to data: inout Data, fullPackageLength: UInt16, sequenceNumber: UInt8) {
+    func write(to data: inout Data, fullPacketLength: UInt16, sequenceNumber: UInt8) {
         data[38...114] = dmxDataFramingLayerTemplate
-        let pduLength = fullPackageLength - (Self.lengthStartingByte - 1)
+        let pduLength = fullPacketLength - (Self.lengthStartingByte - 1)
         data[DMXDataFramingLayer.flagsAndLengthRange] = flagsAndLength(length: pduLength).networkByteOrder.data
         
         
@@ -226,18 +226,18 @@ struct DMPLayer {
     }
     func write(
         to data: inout Data,
-        fullPackageLength: UInt16
+        fullPacketLength: UInt16
     ) {
         assert(dmxData.count <= 512)
         data[115...125] = dmpLayerTemplate
-        let pduLength = fullPackageLength - (Self.lengthStartingByte - 1)
+        let pduLength = fullPacketLength - (Self.lengthStartingByte - 1)
         data[DMPLayer.flagsAndLengthRange] = flagsAndLength(length: pduLength).networkByteOrder.data
         data[DMPLayer.propertyValueCountRange] = UInt16(1 + dmxData.count).networkByteOrder.data
         data[126..<(126 + dmxData.count)] = dmxData
     }
 }
 
-fileprivate struct DataPacket {
+struct DataPacket {
     var rootLayer: RootLayer
     var framingLayer: DMXDataFramingLayer
     var dmpLayer: DMPLayer
@@ -248,9 +248,9 @@ fileprivate struct DataPacket {
     func getData(sequenceNumber: UInt8) -> Data {
         let count = self.count
         var data = Data(count: count)
-        rootLayer.write(to: &data, fullPackageLength: UInt16(count))
-        framingLayer.write(to: &data, fullPackageLength: UInt16(count), sequenceNumber: sequenceNumber)
-        dmpLayer.write(to: &data, fullPackageLength: UInt16(count))
+        rootLayer.write(to: &data, fullPacketLength: UInt16(count))
+        framingLayer.write(to: &data, fullPacketLength: UInt16(count), sequenceNumber: sequenceNumber)
+        dmpLayer.write(to: &data, fullPacketLength: UInt16(count))
         return data
     }
 }
