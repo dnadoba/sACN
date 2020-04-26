@@ -267,6 +267,16 @@ public func getDeviceName() -> String {
 /// IPv4 UDP Multicast Connection to send DMX Data to a given Universe
 /// Note: this class is not threadsafe
 public final class MulticastConnection {
+    public enum IPVersion {
+        case v4
+        case v6
+        func hostForUnvierse(_ universe: UInt16) -> NWEndpoint.Host? {
+            switch self {
+            case .v4: return IPv4Address.sACN(universe: universe).map(NWEndpoint.Host.ipv4(_:))
+            case .v6: return IPv6Address.sACN(universe: universe).map(NWEndpoint.Host.ipv6(_:))
+            }
+        }
+    }
     public let queue: DispatchQueue
     private let connection: NWConnection
     
@@ -315,26 +325,29 @@ public final class MulticastConnection {
             using: parameters
         )
         
-
         connection.start(queue: self.queue)
     }
     
     /// Starts a IPv4 UDP Multicast Connection for a given `universe`
     /// - Parameters:
-    ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4 Address
+    ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4/IPv6 Address
+    ///   - ipVersion: version of the Internet Protocol to use. Default is `.v4`.
+    ///   - port: UPD port of the connection. Default is 5568 wich is the sACN default port.
     ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID.
     ///   - sourceName: Source Name - Userassigned Name of Source. Default is the device name.
     ///   - queue: DispatchQueue used for NWConnection/
     ///   - parameters: custom parameters for NWConnection. Must be UDP. Defaults to UDP with `serviceClass` set to `.responsiveData`.
     public convenience init(
         universe: UInt16,
+        ipVersion: IPVersion = .v4,
+        port: NWEndpoint.Port = .sACN,
         cid: UUID = .init(),
         sourceName: String = getDeviceName(),
         queue: DispatchQueue? = nil,
         parameters: NWParameters? = nil
     ) {
-        guard let address = IPv4Address.sACN(universe: universe) else {
-            fatalError("could not create IPV4Address for universe \(universe)")
+        guard let host = ipVersion.hostForUnvierse(universe) else {
+            fatalError("could not create ip address for universe \(universe) IP \(ipVersion)")
         }
         self.init(
             endpoint: .hostPort(host: .ipv4(address), port: .sACN),
