@@ -9,7 +9,7 @@ import Foundation
 import Network
 
 extension FixedWidthInteger {
-    /// converts from host byte order to network byte order (big endian)
+    /// converts from host byte order to network byte order (big-endian)
     var networkByteOrder: Self { bigEndian }
 }
 
@@ -18,6 +18,16 @@ extension UnsignedInteger {
     var data: Data {
         var copy = self
         return Data(bytes: &copy, count: MemoryLayout<Self>.size)
+    }
+}
+
+extension UUID {
+    /// Data of `self` in big-endian order.
+    var data: Data {
+        Data([
+            uuid.0, uuid.1, uuid.2,  uuid.3,  uuid.4,  uuid.5,  uuid.6,  uuid.7,
+            uuid.8, uuid.9, uuid.10, uuid.11, uuid.12, uuid.13, uuid.14, uuid.15,
+        ])
     }
 }
 
@@ -85,6 +95,12 @@ let rootLayerTemplate = Data([
 ])
 fileprivate let uuidSize = 16
 
+
+/// combines the first 12 bits of `length` with the first 4 bits of `flags` into a single Flags and Length Field (UInt16) according to the E1.31 specification..
+/// - Parameters:
+///   - length: The length. Only the first 12 bits are used. The last 4 bits are ignored.
+///   - flags: The flags. Only the first 4 bis are used. The last 4 btis are ignored.
+/// - Returns: Length and Flags field according to the E1.31 specification.
 func flagsAndLength(length: UInt16, flags: UInt8 = 0x07) -> UInt16 {
     // Low 12 bits = PDU length
     let escapedLength = length              & 0b0000_1111_1111_1111
@@ -100,11 +116,7 @@ struct RootLayer {
     
     private let cidData: Data
     init(cid: UUID) {
-        let data = cid.uuid
-        self.cidData = Data([
-            data.0, data.1, data.2,  data.3,  data.4,  data.5,  data.6,  data.7,
-            data.8, data.9, data.10, data.11, data.12, data.13, data.14, data.15,
-        ])
+        self.cidData = cid.uuid.data
     }
     var count: Int { rootLayerTemplate.count }
     func write(to data: inout Data, fullPacketLength: UInt16) {
