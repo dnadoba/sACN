@@ -282,7 +282,8 @@ public final class MulticastConnection {
         defaultParameter.serviceClass = .responsiveData
         return defaultParameter
     }()
-    private let connection: NWConnection
+    public let connection: NWConnection
+    public let queue: DispatchQueue
     
     /// Sender's Component Identifier
     public let cid: UUID
@@ -323,10 +324,10 @@ public final class MulticastConnection {
         self.connection = NWConnection(
             to: endpoint,
             using: parameters
-            to: endpoint,
+        )
         
         connection.start(queue: self.queue)
-        
+    }
     
     /// Starts a IPv4 UDP Multicast Connection for a given `universe`
     /// - Parameters:
@@ -350,7 +351,7 @@ public final class MulticastConnection {
             fatalError("could not create ip address for universe \(universe) IP \(ipVersion)")
         }
         self.init(
-            endpoint: .hostPort(host: .ipv4(address), port: .sACN),
+            endpoint: .hostPort(host: host, port: .sACN),
             universe: universe,
             cid: cid,
             sourceName: sourceName,

@@ -8,11 +8,7 @@ final class sACNTests: XCTestCase {
     func testDmxDataFramingLayerTemplateDataCount() {
         XCTAssertEqual(dmxDataFramingLayerTemplate.count, 77)
     }
-    func testExample() {
+    func testFlagsAndLength() {
         XCTAssertEqual(flagsAndLength(length: 1, flags: 0), UInt16(256).networkByteOrder)
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }
