@@ -9,10 +9,8 @@ on:
 jobs:
   build:
 
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest]
+    runs-on: macos-latest
+
     steps:
     - uses: actions/checkout@v2
     - name: Build
