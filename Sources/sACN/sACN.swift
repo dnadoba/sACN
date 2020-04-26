@@ -9,22 +9,53 @@ import Foundation
 import Network
 
 extension FixedWidthInteger {
+    /// converts from host byte order to network byte order (big endian)
     var networkByteOrder: Self { bigEndian }
 }
 
 extension UnsignedInteger {
-    /// A collection containing the words of this value’s binary representation, in order from the least significant to most significant.
+    /// A collection containing the words of this value’s binary representation, in order of the host system.
     var data: Data {
         var copy = self
         return Data(bytes: &copy, count: MemoryLayout<Self>.size)
     }
 }
 
+fileprivate let universeDiscovery: UInt16 = 64214
+
 extension IPv4Address {
-    static func sACN(universe: UInt16) -> IPv4Address? {
+    public static func sACN(universe: UInt16) -> IPv4Address? {
         IPv4Address(Data([239, 255] + universe.networkByteOrder.data))
     }
-    static var sACNUniverDiscovery: IPv4Address { .sACN(universe: 64214)! }
+    public static var sACNUniverseDiscovery: IPv4Address { .sACN(universe: universeDiscovery)! }
+}
+
+extension IPv6Address {
+    public static func sACN(universe: UInt16) -> IPv6Address? {
+        IPv6Address(Data([
+            0xFF, // 1
+            0x18, // 2
+            0x00, // 3
+            0x00, // 4
+            0x00, // 5
+            0x00, // 6
+            0x00, // 7
+            0x00, // 8
+            0x00, // 9
+            0x00, // 10
+            0x00, // 11
+            0x00, // 12
+            0x83, // 13
+            0x00, // 14 - reserved
+                  // 15 - Universe/Synchronization Address – Hi byte
+                  // 16 - Universe/Synchronization Address – Lo byte
+        ] + universe.networkByteOrder.data))
+    }
+    public static var sACNUniverseDiscovery: IPv6Address { .sACN(universe: universeDiscovery)! }
+}
+
+extension NWEndpoint.Port {
+    public static let sACN: NWEndpoint.Port = 5568
 }
 
 let rootLayerTemplate = Data([
@@ -248,24 +279,22 @@ public final class MulticastConnection {
     private let dataFramginLayer: DMXDataFramingLayer
     public private(set) var sequenceNumber: UInt8 = 0
     
-    
-    /// Starts a IPv4 UDP Multicast Connection for a given `universe`
+    /// Starts a UDP  Connection for the given `endpoint`
     /// - Parameters:
-    ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4 Address
+    ///   - endpoint: valid sACN endpoint
+    ///   - universe: valid DMX Universe. 1 - 64000.
     ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID.
     ///   - sourceName: Source Name - Userassigned Name of Source. Default is the device name.
-    ///   - queue: DispatchQueue used for NWConnection/
-    ///   - parameters: custom parameters for NWConnection. Must be UDP/
+    ///   - queue: DispatchQueue used for NWConnection.
+    ///   - parameters: custom parameters for NWConnection. Must be UDP. Defaults to UDP with `serviceClass` set to `.responsiveData`.
     public init(
+        endpoint: NWEndpoint,
         universe: UInt16,
         cid: UUID = .init(),
         sourceName: String = getDeviceName(),
         queue: DispatchQueue? = nil,
         parameters: NWParameters? = nil
     ) {
-        guard let address = IPv4Address.sACN(universe: universe) else {
-            fatalError("could not create IPV4Address for universe \(universe)")
-        }
         self.queue = queue ?? DispatchQueue(label: "sACN.udp-send-queue-for-universe-\(universe)")
         self.cid = cid
         self.sourceName = sourceName
@@ -278,11 +307,11 @@ public final class MulticastConnection {
             return defaultParameter
         }()
         
+        // could not find a better way to detect if `NWParameters` is configured for UDP
         assert(parameters.debugDescription.lowercased().contains("udp"), "parameters must be for a UDP connection")
         
         self.connection = NWConnection(
-            host: .ipv4(address),
-            port: 5568,
+            to: endpoint,
             using: parameters
         )
         
@@ -290,8 +319,35 @@ public final class MulticastConnection {
         connection.start(queue: self.queue)
     }
     
+    /// Starts a IPv4 UDP Multicast Connection for a given `universe`
+    /// - Parameters:
+    ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4 Address
+    ///   - cid: Sender's Component Identifier - should be uninque for each device. Default will generate a random UUID.
+    ///   - sourceName: Source Name - Userassigned Name of Source. Default is the device name.
+    ///   - queue: DispatchQueue used for NWConnection/
+    ///   - parameters: custom parameters for NWConnection. Must be UDP. Defaults to UDP with `serviceClass` set to `.responsiveData`.
+    public convenience init(
+        universe: UInt16,
+        cid: UUID = .init(),
+        sourceName: String = getDeviceName(),
+        queue: DispatchQueue? = nil,
+        parameters: NWParameters? = nil
+    ) {
+        guard let address = IPv4Address.sACN(universe: universe) else {
+            fatalError("could not create IPV4Address for universe \(universe)")
+        }
+        self.init(
+            endpoint: .hostPort(host: .ipv4(address), port: .sACN),
+            universe: universe,
+            cid: cid,
+            sourceName: sourceName,
+            queue: queue,
+            parameters: parameters
+        )
+    }
+    
     private func getNextSequenceNumber() -> UInt8 {
-        sequenceNumber &+= 1
+        defer { sequenceNumber &+= 1 }
         return sequenceNumber
     }
     /// Send the given DMX Data to `universe`
