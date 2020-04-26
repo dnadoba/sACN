@@ -329,7 +329,7 @@ public final class MulticastConnection {
         connection.start(queue: self.queue)
     }
     
-    /// Starts a IPv4 UDP Multicast Connection for a given `universe`
+    /// Starts a IPv4/IPv6 UDP Multicast Connection for a given `universe`
     /// - Parameters:
     ///   - universe: valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4/IPv6 Address
     ///   - ipVersion: version of the Internet Protocol to use. Default is `.v4`.
