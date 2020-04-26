@@ -3,15 +3,15 @@
 Swift Package for macOS, iOS and tvOS to send sACN (E1.31) DMX Data over UDP using `Network.framework`.
 
 ## Usage
-You only need to initiate a `MulticastConnection` for a universe and you can start sending DMX Data.
+You only need to initiate a `Connection` for a universe and you can start sending DMX Data.
 
 ```swift
-let connection = MulticastConnection(universe: 1)
+let connection = Connection(universe: 1)
 connection.sendDMXData(Data([0, 10, 255, 0, 0, 0, 255]))
 ```
 If you want to use UDP Unicast instead of Multicast, you can simply sepcify an endpoint yourself:
 ```swift
-let connection = MulticastConnection(endpoint: .hostPort(host: "192.168.2.102", .sACN), universe: 2)
+let connection = Connection(endpoint: .hostPort(host: "192.168.2.102", .sACN), universe: 2)
 connection.sendDMXData(Data([0, 10, 255, 0, 0, 0, 255]))
 ```
 
@@ -25,7 +25,7 @@ connection.sendDMXData(Data([0, 10, 255, 0, 0, 0, 255]))
 ### Using IPv6
 For Unicast, you need to specify an IPv6 Endpoint. For Multicast, you need to speicify the ipVersion:
 ```swift
-let connection = MulticastConnection(universe: 1, ipVersion: .v6)
+let connection = Connection(universe: 1, ipVersion: .v6)
 ```
 
 ### Priority 
@@ -39,7 +39,7 @@ After you created a `connection`, you can choose per packet if it is preview dat
 connection.sendDMXData(data, isPreviewData: true)
 ```
 ### Other Connection Initialization Configuration
-`MulticastConnection` does support customizing the port, component identifier (CID), source name, `DispatchQueue` and `NWConneciton.Parameter`. Look into the Documentaiton for more information.
+`Connection` does support customizing the port, component identifier (CID), source name, `DispatchQueue` and `NWConneciton.Parameter`. Look into the Documentaiton for more information.
 ```swift
 public convenience init(
     universe: UInt16,
