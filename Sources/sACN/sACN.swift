@@ -277,7 +277,11 @@ public final class MulticastConnection {
             }
         }
     }
-    public let queue: DispatchQueue
+    public static let defaultParameters: NWParameters = {
+        let defaultParameter = NWParameters.udp
+        defaultParameter.serviceClass = .responsiveData
+        return defaultParameter
+    }()
     private let connection: NWConnection
     
     /// Sender's Component Identifier
@@ -311,11 +315,7 @@ public final class MulticastConnection {
         rootLayer = RootLayer(cid: cid)
         dataFramginLayer = .init(sourceName: sourceName, universe: universe)
         
-        let parameters = parameters ?? {
-            let defaultParameter = NWParameters.udp
-            defaultParameter.serviceClass = .responsiveData
-            return defaultParameter
-        }()
+        let parameters = parameters ?? MulticastConnection.defaultParameters
         
         // could not find a better way to detect if `NWParameters` is configured for UDP
         assert(parameters.debugDescription.lowercased().contains("udp"), "parameters must be for a UDP connection")
@@ -323,10 +323,10 @@ public final class MulticastConnection {
         self.connection = NWConnection(
             to: endpoint,
             using: parameters
-        )
+            to: endpoint,
         
         connection.start(queue: self.queue)
-    }
+        
     
     /// Starts a IPv4 UDP Multicast Connection for a given `universe`
     /// - Parameters:
