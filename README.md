@@ -57,4 +57,5 @@ public convenience init(
 
 ## Known Limitations
 - Receiving DMX Data (have a look at this repository: https://github.com/jkmassel/ACNKit)
+- Universe Discovery is not implemented
  
