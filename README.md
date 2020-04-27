@@ -1,4 +1,4 @@
-# sACN (E1.31)
+# sACN (E1.31) [![Documentation](https://img.shields.io/badge/Documentation-<Color>.svg)](https://dnadoba.github.io/sACN/index.html)
 
 Swift Package for macOS, iOS, and tvOS to send sACN (E1.31) DMX Data over UDP using `Network.framework`.
 
@@ -22,25 +22,30 @@ connection.sendDMXData(Data([0, 10, 255, 0, 0, 0, 255]))
 - Depends only on `Foundation` and `Network.framework`
 
 ## Advanced Usage
+#### [Documentation](https://dnadoba.github.io/sACN/index.html)
 
 ### Using IPv6
-For Unicast, you need to specify an IPv6 Endpoint. For Multicast, you need to specify the ipVersion:
+For Unicast, you need to specify an IPv6 Endpoint. For Multicast, you need to specify the IP version you want to use:
+
 ```swift
 let connection = Connection(universe: 1, ipVersion: .v6)
 ```
 
 ### Priority 
-After you created a `connection`, you can set the priority per packet using the `sendDMXData(_:priority:isPreviewData:)` method. The default priority is `100`.
+After you created a `connection`, you can set the priority per packet using the `Connection.sendDMXData(_:priority:isPreviewData:)` method. The default priority is `100`.
+
 ```swift
 connection.sendDMXData(data, priority: 200)
 ```
 ### Preview Data
-After you created a `connection`, you can choose per packet if it is preview data or not using the  `sendDMXData(_:priority:isPreviewData:)` method. `isPreviewData` defaults to `false`.
+After you created a `connection`, you can choose per packet if it is preview data or not using the  `Connection.sendDMXData(_:priority:isPreviewData:)` method. `isPreviewData` defaults to `false`.
+
 ```swift
 connection.sendDMXData(data, isPreviewData: true)
 ```
 ### Other Connection Initialization Configuration
-`Connection` does support customizing the port, component identifier (CID), source name, `DispatchQueue`, and `NWConneciton.Parameter`. Look into the Documentation for more information.
+`Connection` does support customizing the port, component identifier (CID), source name, `DispatchQueue`, and `NWConneciton.Parameter`. Look into the [Documentation](https://dnadoba.github.io/sACN/Classes/Connection.html#/s:4sACN10ConnectionC8universe9ipVersion4port3cid10sourceName5queue10parametersACs6UInt16V_AC9IPVersionO7Network10NWEndpointO4PortV10Foundation4UUIDVSSSo012OS_dispatch_J0CSgAO12NWParametersCSgtcfc) for more information.
+
 ```swift
 public convenience init(
     universe: UInt16,
@@ -52,8 +57,6 @@ public convenience init(
     parameters: NWParameters? = nil
 )
 ```
-
-
 
 ## Known Limitations
 - Receiving DMX Data (have a look at this repository: https://github.com/jkmassel/ACNKit)
