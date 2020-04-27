@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Connection Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Connection" class="dashAnchor"></a>
+    <a title="Connection Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">sACN Docs</a> (63% documented)</p>
+        <p class="header-right"><a href="https://github.com/dnadoba/sACN"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fdnadoba%2Egithub%2Eio%2FsACN%2Fdocsets%2FsACN%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">sACN Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Connection Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Connection.html">Connection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Connection/IPVersion.html">– IPVersion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/IPv4Address.html">IPv4Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/IPv6Address.html">IPv6Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NWEndpoint.html">NWEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NWEndpoint/Port.html">– Port</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:4sACN13getDeviceNameSSyF">getDeviceName()</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Connection</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Connection</span></code></pre>
+
+                </div>
+              </div>
+            <p>IPv4/IPv6 UDP Connection to send DMX Data to a given Universe
+Note: this class is not threadsafe</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC9IPVersionO"></a>
+                    <a name="//apple_ref/swift/Enum/IPVersion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC9IPVersionO">IPVersion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/Connection/IPVersion.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">IPVersion</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC17defaultParameters7Network12NWParametersCvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultParameters" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC17defaultParameters7Network12NWParametersCvpZ">defaultParameters</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultParameters</span><span class="p">:</span> <span class="kt">NWParameters</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC10connection7Network12NWConnectionCvp"></a>
+                    <a name="//apple_ref/swift/Property/connection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC10connection7Network12NWConnectionCvp">connection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">connection</span><span class="p">:</span> <span class="kt">NWConnection</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC5queueSo012OS_dispatch_C0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/queue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC5queueSo012OS_dispatch_C0Cvp">queue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC3cid10Foundation4UUIDVvp"></a>
+                    <a name="//apple_ref/swift/Property/cid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC3cid10Foundation4UUIDVvp">cid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sender&rsquo;s Component Identifier</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">cid</span><span class="p">:</span> <span class="kt">UUID</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC10sourceNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/sourceName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC10sourceNameSSvp">sourceName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Source Name - Userassigned Name of Source</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">sourceName</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC14sequenceNumbers5UInt8Vvp"></a>
+                    <a name="//apple_ref/swift/Property/sequenceNumber" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC14sequenceNumbers5UInt8Vvp">sequenceNumber</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">sequenceNumber</span><span class="p">:</span> <span class="kt">UInt8</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC8endpoint8universe3cid10sourceName5queue10parametersAC7Network10NWEndpointO_s6UInt16V10Foundation4UUIDVSSSo012OS_dispatch_H0CSgAJ12NWParametersCSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(endpoint:universe:cid:sourceName:queue:parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC8endpoint8universe3cid10sourceName5queue10parametersAC7Network10NWEndpointO_s6UInt16V10Foundation4UUIDVSSSo012OS_dispatch_H0CSgAJ12NWParametersCSgtcfc">init(endpoint:<wbr>universe:<wbr>cid:<wbr>sourceName:<wbr>queue:<wbr>parameters:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Starts a UDP Unicast or Multicast Connection, depending on the given <code>endpoint</code>, for the given <code>endpoint</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">endpoint</span><span class="p">:</span> <span class="kt">NWEndpoint</span><span class="p">,</span>
+    <span class="nv">universe</span><span class="p">:</span> <span class="kt">UInt16</span><span class="p">,</span>
+    <span class="nv">cid</span><span class="p">:</span> <span class="kt">UUID</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(),</span>
+    <span class="nv">sourceName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nf">getDeviceName</span><span class="p">(),</span>
+    <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">parameters</span><span class="p">:</span> <span class="kt">NWParameters</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>endpoint</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>sACN endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>universe</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>valid DMX Universe. 1 - 64000.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Sender&rsquo;s Component Identifier - should be uninque for each device. Default will generate a random UUID.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Source Name - Userassigned Name of Source. Default is the device name.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>DispatchQueue used for NWConnection.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parameters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>custom parameters for NWConnection. Must be UDP. Defaults to UDP with <code>serviceClass</code> set to <code>.responsiveData</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC8universe9ipVersion4port3cid10sourceName5queue10parametersACs6UInt16V_AC9IPVersionO7Network10NWEndpointO4PortV10Foundation4UUIDVSSSo012OS_dispatch_J0CSgAO12NWParametersCSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(universe:ipVersion:port:cid:sourceName:queue:parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC8universe9ipVersion4port3cid10sourceName5queue10parametersACs6UInt16V_AC9IPVersionO7Network10NWEndpointO4PortV10Foundation4UUIDVSSSo012OS_dispatch_J0CSgAO12NWParametersCSgtcfc">init(universe:<wbr>ipVersion:<wbr>port:<wbr>cid:<wbr>sourceName:<wbr>queue:<wbr>parameters:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Starts a IPv4/IPv6 UDP Multicast Connection for a given <code>universe</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">universe</span><span class="p">:</span> <span class="kt">UInt16</span><span class="p">,</span>
+    <span class="nv">ipVersion</span><span class="p">:</span> <span class="kt"><a href="../Classes/Connection/IPVersion.html">IPVersion</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">v4</span><span class="p">,</span>
+    <span class="nv">port</span><span class="p">:</span> <span class="kt">NWEndpoint</span><span class="o">.</span><span class="kt">Port</span> <span class="o">=</span> <span class="o">.</span><span class="n">sACN</span><span class="p">,</span>
+    <span class="nv">cid</span><span class="p">:</span> <span class="kt">UUID</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(),</span>
+    <span class="nv">sourceName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nf">getDeviceName</span><span class="p">(),</span>
+    <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">parameters</span><span class="p">:</span> <span class="kt">NWParameters</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>universe</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>valid DMX Universe. 1 - 64000. will crash if the universe can not be converted to a IPv4/IPv6 Address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ipVersion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>version of the Internet Protocol to use. Default is <code>.v4</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>port</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UPD port of the connection. Default is 5568 wich is the sACN default port.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Sender&rsquo;s Component Identifier - should be uninque for each device. Default will generate a random UUID.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Source Name - Userassigned Name of Source. Default is the device name.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>DispatchQueue used for NWConnection/</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parameters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>custom parameters for NWConnection. Must be UDP. Defaults to UDP with <code>serviceClass</code> set to <code>.responsiveData</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4sACN10ConnectionC11sendDMXData_8priority13isPreviewDatay10Foundation0H0V_s5UInt8VSbtF"></a>
+                    <a name="//apple_ref/swift/Method/sendDMXData(_:priority:isPreviewData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4sACN10ConnectionC11sendDMXData_8priority13isPreviewDatay10Foundation0H0V_s5UInt8VSbtF">sendDMXData(_:<wbr>priority:<wbr>isPreviewData:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send the given DMX Data to <code>universe</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendDMXData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">priority</span><span class="p">:</span> <span class="kt">UInt8</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">isPreviewData</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="http://nadoba.de" target="_blank" rel="external">David Nadoba</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>sACN  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="sACN  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">sACN Docs</a> (63% documented)</p>
+        <p class="header-right"><a href="https://github.com/dnadoba/sACN"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fdnadoba%2Egithub%2Eio%2FsACN%2Fdocsets%2FsACN%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">sACN Reference</a>
+        <img id="carat" src="img/carat.png" />
+        sACN  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Connection.html">Connection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Connection/IPVersion.html">– IPVersion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/IPv4Address.html">IPv4Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/IPv6Address.html">IPv6Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/NWEndpoint.html">NWEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/NWEndpoint/Port.html">– Port</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:4sACN13getDeviceNameSSyF">getDeviceName()</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='sacn-e1-31-a-href-https-dnadoba-github-io-sacn-index-html-img-src-https-img-shields-io-badge-documentation-3ccolor-3e-svg-alt-documentation-a' class='heading'>sACN (E1.31) <a href="https://dnadoba.github.io/sACN/index.html"><img src="https://img.shields.io/badge/Documentation-%3CColor%3E.svg" alt="Documentation"></a></h1>
+
+<p>Swift Package for macOS, iOS, and tvOS to send sACN (E1.31) DMX Data over UDP using <code>Network.framework</code>.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>You only need to initiate a <code><a href="Classes/Connection.html">Connection</a></code> for a universe and you can start sending DMX Data.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">connection</span> <span class="o">=</span> <span class="kt">Connection</span><span class="p">(</span><span class="nv">universe</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">connection</span><span class="o">.</span><span class="nf">sendDMXData</span><span class="p">(</span><span class="kt">Data</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">]))</span>
+</code></pre>
+
+<p>If you want to use UDP Unicast instead of Multicast, you can simply specify an endpoint yourself:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">connection</span> <span class="o">=</span> <span class="kt">Connection</span><span class="p">(</span><span class="nv">endpoint</span><span class="p">:</span> <span class="o">.</span><span class="nf">hostPort</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"192.168.2.102"</span><span class="p">,</span> <span class="o">.</span><span class="n">sACN</span><span class="p">),</span> <span class="nv">universe</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">connection</span><span class="o">.</span><span class="nf">sendDMXData</span><span class="p">(</span><span class="kt">Data</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">]))</span>
+</code></pre>
+<h2 id='features' class='heading'>Features</h2>
+
+<ul>
+<li>Sending DMX Data via UDP Multicast and Unicast on IPv4/IPv6</li>
+<li>sACN Package Priority</li>
+<li>Preview Data</li>
+<li>Depends only on <code>Foundation</code> and <code>Network.framework</code></li>
+</ul>
+<h2 id='advanced-usage' class='heading'>Advanced Usage</h2>
+<h4 id='a-href-https-dnadoba-github-io-sacn-index-html-documentation-a' class='heading'><a href="https://dnadoba.github.io/sACN/index.html">Documentation</a></h4>
+<h3 id='using-ipv6' class='heading'>Using IPv6</h3>
+
+<p>For Unicast, you need to specify an IPv6 Endpoint. For Multicast, you need to specify the IP version you want to use:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">connection</span> <span class="o">=</span> <span class="kt">Connection</span><span class="p">(</span><span class="nv">universe</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">ipVersion</span><span class="p">:</span> <span class="o">.</span><span class="n">v6</span><span class="p">)</span>
+</code></pre>
+<h3 id='priority' class='heading'>Priority</h3>
+
+<p>After you created a <code>connection</code>, you can set the priority per packet using the <code><a href="Classes/Connection.html#/s:4sACN10ConnectionC11sendDMXData_8priority13isPreviewDatay10Foundation0H0V_s5UInt8VSbtF">Connection.sendDMXData(_:priority:isPreviewData:)</a></code> method. The default priority is <code>100</code>.</p>
+<pre class="highlight swift"><code><span class="n">connection</span><span class="o">.</span><span class="nf">sendDMXData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nv">priority</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span>
+</code></pre>
+<h3 id='preview-data' class='heading'>Preview Data</h3>
+
+<p>After you created a <code>connection</code>, you can choose per packet if it is preview data or not using the  <code><a href="Classes/Connection.html#/s:4sACN10ConnectionC11sendDMXData_8priority13isPreviewDatay10Foundation0H0V_s5UInt8VSbtF">Connection.sendDMXData(_:priority:isPreviewData:)</a></code> method. <code>isPreviewData</code> defaults to <code>false</code>.</p>
+<pre class="highlight swift"><code><span class="n">connection</span><span class="o">.</span><span class="nf">sendDMXData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nv">isPreviewData</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+</code></pre>
+<h3 id='other-connection-initialization-configuration' class='heading'>Other Connection Initialization Configuration</h3>
+
+<p><code><a href="Classes/Connection.html">Connection</a></code> does support customizing the port, component identifier (CID), source name, <code>DispatchQueue</code>, and <code>NWConneciton.Parameter</code>. Look into the <a href="https://dnadoba.github.io/sACN/Classes/Connection.html#/s:4sACN10ConnectionC8universe9ipVersion4port3cid10sourceName5queue10parametersACs6UInt16V_AC9IPVersionO7Network10NWEndpointO4PortV10Foundation4UUIDVSSSo012OS_dispatch_J0CSgAO12NWParametersCSgtcfc">Documentation</a> for more information.</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">universe</span><span class="p">:</span> <span class="kt">UInt16</span><span class="p">,</span>
+    <span class="nv">ipVersion</span><span class="p">:</span> <span class="kt">IPVersion</span> <span class="o">=</span> <span class="o">.</span><span class="n">v4</span><span class="p">,</span>
+    <span class="nv">port</span><span class="p">:</span> <span class="kt">NWEndpoint</span><span class="o">.</span><span class="kt">Port</span> <span class="o">=</span> <span class="o">.</span><span class="n">sACN</span><span class="p">,</span>
+    <span class="nv">cid</span><span class="p">:</span> <span class="kt">UUID</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(),</span>
+    <span class="nv">sourceName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nf">getDeviceName</span><span class="p">(),</span>
+    <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">parameters</span><span class="p">:</span> <span class="kt">NWParameters</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span>
+</code></pre>
+<h2 id='known-limitations' class='heading'>Known Limitations</h2>
+
+<ul>
+<li>Receiving DMX Data (have a look at this repository: <a href="https://github.com/jkmassel/ACNKit">https://github.com/jkmassel/ACNKit</a>)</li>
+<li>Universe Discovery is not implemented</li>
+</ul>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="http://nadoba.de" target="_blank" rel="external">David Nadoba</a>. All rights reserved. (Last updated: 2020-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

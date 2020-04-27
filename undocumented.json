@@ -1,0 +1,61 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 281,
+      "symbol": "getDeviceName()",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 291,
+      "symbol": "Connection.IPVersion",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 292,
+      "symbol": "Connection.IPVersion.v4",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 293,
+      "symbol": "Connection.IPVersion.v6",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 301,
+      "symbol": "Connection.defaultParameters",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 306,
+      "symbol": "Connection.connection",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 307,
+      "symbol": "Connection.queue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.169.1/work/sACN/sACN/Sources/sACN/sACN.swift",
+      "line": 316,
+      "symbol": "Connection.sequenceNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/runners/2.169.1/work/sACN/sACN"
+}
